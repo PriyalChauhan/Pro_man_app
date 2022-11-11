@@ -1,0 +1,19 @@
+<h1>Project : <%= @project.name %></h1><br>
+<h3>Create Task</h3>
+<%= render "tasks/taskform" %>
+
+<div>
+  <%= link_to "See all the tasks", project_tasks_path(@project.id) %>
+</div>
+
+<%= form_for([@project, @comment], remote: true) do |form| %>
+  <%= form.label :comment %>
+  <%= form.text_field :comment %>
+
+  <%= form.submit %>
+<% end %>
+
+<% @project.comments.each do |c| %>
+  
+ <p><%= current_user.first_name %>  :   <%= c.comment %><br></p>
+<% end %>

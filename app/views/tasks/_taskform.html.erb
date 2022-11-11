@@ -1,0 +1,19 @@
+<%= form_with model: [ @project,@project.tasks.create ]  do |form| %>
+
+<%= form.label :title %>
+<%= form.text_field :title %>
+
+<%= form.label :status %>
+<%= form.select :status, ['Not Started', 'Doing', 'Done'] %>
+
+<%= form.label :email %>
+<%= form.select :reporter_id, User.all.map{|u| [u.email, u.id]}, {}  %>
+<!--<%= form.select :reporter_id, User.pluck(:email) %>-->
+
+<%= form.hidden_field :project_id, value: @project.id %>
+<%= form.hidden_field :assignee_id, value: current_user.id %>
+
+<%= form.submit  %>
+
+
+<% end %>

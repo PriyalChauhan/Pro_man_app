@@ -1,0 +1,22 @@
+<h1>All tasks of <%= @project.name %></h1>
+
+<% @tasks.each do |task| %>
+  <div>
+    <p> Task : <%= task.title %></p>
+    <%= button_to "Delete Task", project_task_path(id: task.id), method: :delete %>
+  </div>
+
+  <%= form_for([@task,@comment], remote: true) do |form| %>
+    <%= form.label :comment %>
+    <%= form.text_field :comment %>
+
+    <%= form.submit %>
+    <% end %>
+
+<% end %>
+
+<% unless @task.nil? %>
+<% @task.comments.each do |c| %>
+<%= c.comment %>
+<% end %>
+<%end %>
