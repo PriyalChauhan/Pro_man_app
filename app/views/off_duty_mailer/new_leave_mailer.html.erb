@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <p><%= @off_duty.user.first_name %>has applied for leave</p>
+    <p>
+    Leave details<br>
+    --------------------------
+    </p>
+    <p>Email: <%= @off_duty.user.email %></p>
+    <p>From Date: <%= @off_duty.from_date %></p>
+    <p>To Date: <%= @off_duty.to_date %></p>
+    <p>Reason: <%= @off_duty.reason %></p>
+  </body>
+</html>

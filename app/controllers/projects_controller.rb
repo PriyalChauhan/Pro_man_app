@@ -2,21 +2,24 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   def index
-    @projects = current_user.projects    
+    @projects = current_user.projects
+    
   end
 
   def show;
     @comment = @project.comments.new
+    @label = @project.labels.new
   end
 
   def new
     @project = current_user.projects.new
+    
   end
 
   def create
     @project = Project.new(project_params)
     if @project.save
-     current_user.projects <<  @project
+      current_user.projects <<  @project
       redirect_to root_path
     else
       render :new
@@ -44,7 +47,7 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:project).permit(:name, :description)
+    params.require(:project).permit(:name, :description, documents: [])
   end
 end
 

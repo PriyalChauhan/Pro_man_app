@@ -1,0 +1,33 @@
+<h2>Apply Leave - </h2>
+<%= form_with model: @off_duty do |form| %>
+<div class = "row">
+  <div class= "col mb-4">
+    <%= form.label :from_date, as: :date %>
+    <%= form.date_field :from_date %>
+  </div>
+
+  <div class= "col mb-4">
+    <%= form.label :to_date, as: :date %>
+    <%= form.date_field :to_date %>
+  </div>
+
+  <div class= "col mb-4">
+    <%= form.label :days %>
+    <%= form.text_field :days, value: OffDuty.total_days(:from_date, :to_date)  %>
+  </div>
+
+  <div class= " mb-4">
+    <%= form.label :mail_to %>
+    <%= form.text_field :mail_to %>
+  </div>
+
+  <div class= "col mb-4">
+    <%= form.label :reason %>
+    <%= form.text_area :reason %>
+  </div>
+
+  <div class="mb-4">
+    <%= form.submit "Apply Leave",class: "btn btn-primary" %>
+  </div>
+</div>
+<% end %>

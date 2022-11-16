@@ -5,12 +5,17 @@
     
       <%= render "users/shared/error_messages", resource: resource %>
 
-      <div class="form-outline m-4 ">
+      <div class="form-outline m-4">
+        <%= f.label :avatar, class: "form-label" %><br />
+        <%= f.file_field :avatar %>
+      </div>
+
+      <div class="form-outline m-4">
         <%= f.label :first_name, class: "form-label" %><br />
         <%= f.text_field :first_name, autofocus: true, autocomplete: "first_name",class: "bg-dark text-white" %>
       </div>
 
-      <div class="form-outline m-4 ">
+      <div class="form-outline m-4">
         <%= f.label :email,class: "form-label" %><br />
         <%= f.email_field :email, autofocus: true, autocomplete: "email",class: "bg-dark text-white" %>
       </div>

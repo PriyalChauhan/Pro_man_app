@@ -1,19 +1,31 @@
-<h1>Project : <%= @project.name %></h1><br>
-<h3>Create Task</h3>
-<%= render "tasks/taskform" %>
+<div class= "card">
+  <div class= "card-body">
+    <h2 class= "card-title border-bottom border-5">Project : <%= @project.name %></h2>
+    <h4 class= "card-text">Create Task</h4>
+    <%= render "tasks/taskform" %>
 
-<div>
-  <%= link_to "See all the tasks", project_tasks_path(@project.id) %>
+    <div class="btn btn-warning mb-4">
+      <%= link_to "See all the tasks", project_tasks_path(@project.id) %>
+    </div>
+
+    <h3>Comment Section</h3>
+    <%= form_for([@project, @comment], remote: true) do |form| %>
+      <%= form.text_field :comment %>
+
+      <%= form.submit :Comment %>
+    <% end %>
+
+    <% @project.comments.each do |c| %>
+      <table>
+        <tbody>
+          <tr>
+            <td><%= current_user.first_name %></td>
+            <td> -> </td>
+            <td><%= c.comment %><br></td>
+          </tr>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
 </div>
 
-<%= form_for([@project, @comment], remote: true) do |form| %>
-  <%= form.label :comment %>
-  <%= form.text_field :comment %>
-
-  <%= form.submit %>
-<% end %>
-
-<% @project.comments.each do |c| %>
-  
- <p><%= current_user.first_name %>  :   <%= c.comment %><br></p>
-<% end %>

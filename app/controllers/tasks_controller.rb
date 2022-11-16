@@ -11,23 +11,22 @@ class TasksController < ApplicationController
     @comment = @task.comments.new
     @task.comments << @comment
     end
-    
-    
   end
 
   def create
-     @task = @project.tasks.create(task_params)
-    
-     redirect_to project_tasks_path(@project)
+    @task = @project.tasks.new(task_params)
+    if @task.save
+    redirect_to project_tasks_path(@project)
+    else
+    end
   end
 
   def show
-    
   end 
 
   def update
-     @task = @project.tasks.update(task_params)
-     redirect_to project_path(@project)
+    @task = @project.tasks.update(task_params)
+    redirect_to project_path(@project)
   end
 
   def destroy
@@ -41,6 +40,6 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :project_id, :status, :reporter_id, :assignee_id)
+    params.require(:task).permit(:title, :project_id, :status, :reporter_id, :assignee_id, documents: [])
   end
 end

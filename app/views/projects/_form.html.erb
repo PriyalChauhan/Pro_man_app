@@ -1,4 +1,25 @@
 <%= form_with model: project do |form| %>
+  <% if project.errors.any? %>
+    <div style= "color: red">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <ul>
+        <% project.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <!--<% if project.errors.any? %>
+    <ul>
+      <div>
+        <% project.errors.full_messages.each do |message| %>
+          <div><%= message %></div>
+        <% end %>
+      </div>
+    </ul>
+  <% end %>-->
+
   <div>
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -7,6 +28,11 @@
   <div>
     <%= form.label :description %>
     <%= form.rich_text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :documents %>
+    <%= form.file_field :documents, multiple: true %>
   </div>
 
   <div>

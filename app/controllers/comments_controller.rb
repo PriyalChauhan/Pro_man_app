@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     @comment = @parent.comments.new(comment_params)
     respond_to do |format|
       if @comment.save
-    format.js { render js: 'window.top.location.reload(true);' }
+        format.js { render js: 'window.top.location.reload(true);' }
       else
       end
     end
@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
   def update
   end
 
-  def destroy 
+  def destroy
   end
 
   private

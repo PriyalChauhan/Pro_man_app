@@ -1,0 +1,6 @@
+<div class= "float-end"><%= render "labels/label_form" %></div>
+<div class= "float-end">
+  <% Label.all.each do |label| %>
+    <div><%= label.label %></div>
+  <% end %>
+</div>

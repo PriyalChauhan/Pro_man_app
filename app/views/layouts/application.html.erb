@@ -23,29 +23,55 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/home/index">Home</a>
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
             </li>
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Attendance
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Daily Status</a></li>
-              <li><a class="dropdown-item" href="#">Send Daily Status</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="#">My Leaves</a></li>
-            </ul>
-          </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Apply Leaves</a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Attendance
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="#">Daily Status</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="#">Send Daily Status</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Leaves
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="/off_duties/new">Apply Leaves</a></li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="/off_duties">My Leaves</a></li>
+              </ul>
             </li>
             <li class="nav-item">
               <% if user_signed_in? %>
                 <a class="nav-link active"<%= link_to "Sign Out", destroy_user_session_path, method: :delete %>></a>
+                
               <%else %>
                 <a class="nav-link active"<%= link_to "Login/Sign up", user_session_path, method: :delete %>></a>
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <% if user_signed_in? %>
+                <li class="nav-item">
+                  <%= image_tag(current_user.avatar, size: '40x40') %>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle nav-link active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <%= current_user.first_name %>
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="/users/edit">Edit Profile</a></li>
+                  </ul>
+                </li>
+                
+              <% else %>
               <% end %>
             </li>
           </ul>

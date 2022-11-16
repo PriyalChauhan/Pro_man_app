@@ -1,22 +1,32 @@
-<h5 class="card card-header">Projects list for user : <%= current_user.first_name %></h5>
 <%= link_to "Create Project", new_project_path,class: "btn btn-primary  " %>
-</div>
+
 <% current_user.projects.each do |project| %>
-<div class="card">
-  
-  <div class="card-body">
-    <div>
-    <h5 class="card-title">Project's Name : <%= link_to project.name, project_path(project) %></h5>
-    </div>
+  <div class="card">
+    <div class="card-body">
+      <div>
+        <h5 class="card-title">Project's Name : <%= link_to project.name, project_path(project) %></h5>
+      </div>
 
-    <div>
-    <p class="card-text">Description : <%= project.description %></p>
-    </div>
+      <div class = "float-end" ><%= select_tag('label', options_from_collection_for_select(Label.all, 'id', 'label'), prompt: "Label") %></div>
 
-    <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-info" %>
-    <%= button_to "Delete Project", project_path(project), method: :delete, class: "btn btn-danger" %><br>
+      <div>
+        <p class="card-text">Description : <%= project.description %></p>
+      </div>
+
+      <div>
+        <% project.documents.each do |document| %>
+          <% if document.image? %>
+            <%= image_tag(document, size: '200x100') %>
+          <% elsif document.video? %>
+            <%= video_tag(url_for(document), size: '200x90', controls: "") %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-info" %>
+      <%= button_to "Delete Project", project_path(project), method: :delete, class: "btn btn-danger" %><br>
+    </div>
   </div>
-</div>
 <% end %>
 
 

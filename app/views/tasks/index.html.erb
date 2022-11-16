@@ -1,22 +1,49 @@
 <h1>All tasks of <%= @project.name %></h1>
 
-<% @tasks.each do |task| %>
-  <div>
-    <p> Task : <%= task.title %></p>
-    <%= button_to "Delete Task", project_task_path(id: task.id), method: :delete %>
-  </div>
+<div class = "card">
+  <div class = "card_body" >
+    <% @tasks.each do |task| %>
+      <div class = "card-title">
+        <h3> Task : <%= task.title %></h3>
+        <p> Status : <%= task.status %></p>
+        <%= button_to "Delete Task", project_task_path(id: task.id), method: :delete %>
+      </div>
 
-  <%= form_for([@task,@comment], remote: true) do |form| %>
-    <%= form.label :comment %>
-    <%= form.text_field :comment %>
+      <div>
+        <% task.documents.each do |document| %>
+          <% if document.image? %>
+            <%= image_tag(document, size: '200x100') %>
+          <% elsif document.video? %>
+            <%= video_tag(url_for(document), size: '200x90', controls: "") %>
+          <% end %>
+        <% end %>
+      </div>
 
-    <%= form.submit %>
+      <div class= "form-outline m-4 p-4 border-bottom border-danger border-5">
+        <%= form_for([@task,@comment], remote: true) do |form| %>
+          <%= form.label :comment, class: "form-label" %>
+          <%= form.text_field :comment %>
+
+          <%= form.submit%>
+        <% end %>
+      </div>
     <% end %>
+  
+    <div class= "mb-4">
+      <% unless @task.nil? %>
+        <% @task.comments.each do |c| %>
+          <table>
+            <tbody>
+              <tr>
+                <td><%= current_user.first_name %></td>
+                <td> -> </td>
+                <td><%= c.comment %><br></td>
+              </tr>
+            </tbody>
+          </table>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<% end %>
-
-<% unless @task.nil? %>
-<% @task.comments.each do |c| %>
-<%= c.comment %>
-<% end %>
-<%end %>

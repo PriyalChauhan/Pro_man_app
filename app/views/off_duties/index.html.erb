@@ -1,0 +1,22 @@
+<div class='container border border-primary' >
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col"> Applied By </th>
+      <th scope="col"> From Date </th>
+      <th scope="col"> To Date </th>
+      <th scope="col"> Reason </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @off_duties.each do |off|%>
+      <tr>
+        <td><%= off.user.first_name %></td>
+        <td><%= off.from_date.to_date %></td>
+        <td><%= off.to_date.to_date %></td>
+        <td><%= off.reason %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> 
+<div>

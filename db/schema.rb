@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_11_111431) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_14_133101) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -60,6 +60,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_111431) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "labels", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "labeled_on_type", null: false
+    t.integer "labeled_on_id", null: false
+    t.string "label"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["labeled_on_type", "labeled_on_id"], name: "index_labels_on_labeled_on"
+    t.index ["user_id"], name: "index_labels_on_user_id"
+  end
+
+  create_table "off_duties", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "from_date"
+    t.datetime "to_date"
+    t.integer "days"
+    t.string "mail_to"
+    t.text "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_off_duties_on_user_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -100,6 +123,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_11_111431) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
+  add_foreign_key "labels", "users"
+  add_foreign_key "off_duties", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users", column: "assignee_id"
   add_foreign_key "tasks", "users", column: "reporter_id"

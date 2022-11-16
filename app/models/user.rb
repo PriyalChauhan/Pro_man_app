@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :off_duties
+  has_one_attached :avatar
   has_and_belongs_to_many :projects
   # has_many :reporting_tasks, class_name: "Task", foreign_key: "reporter_id"
   # has_many :assigning_tasks, class_name: "Task", foreign_key: "assignee_id"
