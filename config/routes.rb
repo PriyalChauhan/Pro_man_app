@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   end
 
   resources :labels
-  resources :off_duties  
+  resources :off_duties
+  resources :daily_statuses  
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

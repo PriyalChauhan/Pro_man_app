@@ -1,9 +1,11 @@
 <div class= "card">
   <div class= "card-body">
     <h2 class= "card-title border-bottom border-5">Project : <%= @project.name %></h2>
-    <h4 class= "card-text">Create Task</h4>
-    <%= render "tasks/taskform" %>
-
+    <% if current_user.has_role? :employee %>
+    <% else %>
+      <h4 class= "card-text">Create Task</h4>
+      <%= render "tasks/taskform" %>
+    <% end %>
     <div class="btn btn-warning mb-4">
       <%= link_to "See all the tasks", project_tasks_path(@project.id) %>
     </div>

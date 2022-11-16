@@ -1,6 +1,10 @@
-<div class="card">
-  <h5 class="card-header">Create Project</h5>
-  <div class="card-body">
-    <%= render "form", project: @project %>
+<% if current_user.has_any_role? :employee, :team_lead %>
+ <h2 class = "container text-center mt-5 text-danger" >You do not have access to this page </h2>
+<% else %>
+  <div class="card">
+    <h5 class="card-header">Create Project</h5>
+    <div class="card-body">
+      <%= render "form", project: @project %>
+    </div>
   </div>
-</div>
+<% end %>

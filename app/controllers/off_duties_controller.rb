@@ -22,12 +22,9 @@ class OffDutiesController < ApplicationController
   def show
   end
 
-  def total_days
-    
-  end
-
   private
   def off_duties_params
     params.require(:off_duty).permit(:from_date, :to_date, :days, :mail_to, :reason)
   end
+
 end

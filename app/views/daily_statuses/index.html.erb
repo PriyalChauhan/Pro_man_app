@@ -1,0 +1,24 @@
+<table class="table container border border-primary">
+  <thead class="bg-info">
+    <tr>
+      <th scope="col"> To </th>
+      <th scope="col"> Status Date </th>
+      <th scope="col"> Project </th>
+      <th scope="col"> Working Hours </th>
+      <th scope="col"> Status </th>
+      <th scope="col"> Task </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @daily_statuses.each do |daily|%>
+      <tr>
+        <td><%= daily.email %></td>
+        <td><%= daily.status_date %></td>
+        <td><%= daily.project %></td>
+        <td><%= daily.working_hours%></td>
+        <td><%= daily.status %></td>
+        <td><%= daily.task %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> 

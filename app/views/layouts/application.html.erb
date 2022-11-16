@@ -14,8 +14,8 @@
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
       <div class="container">
-        <a class="navbar-brand" href="#">
-          <img src="https://placeholder.pics/svg/150x50/888888/EEE/Logo" alt="..." height="36">
+        <a class="navbar-brand" href="/projects">
+          <%= image_tag("pic/lofo1.png", alt:"logo", size: "50x50", class: "rounded-circle") %>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -30,11 +30,11 @@
                 Attendance
               </a>
               <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Daily Status</a></li>
+                <li><a class="dropdown-item" href="/daily_statuses">Daily Status</a></li>
                 <li>
                   <hr class="dropdown-divider">
                 </li>
-                <li><a class="dropdown-item" href="#">Send Daily Status</a></li>
+                <li><a class="dropdown-item" href="/daily_statuses/new">Send Daily Status</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown">

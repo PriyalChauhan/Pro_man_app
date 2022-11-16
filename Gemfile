@@ -12,6 +12,9 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0'
 end
 
+
+gem "rolify"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 

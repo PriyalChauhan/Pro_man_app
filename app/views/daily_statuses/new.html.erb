@@ -1,0 +1,43 @@
+
+<h3>Send your daily status</h3>
+<%= form_with model: @daily_status do |form| %>
+  <div class= "row container">
+    <div class="col mb-4">
+      <%= form.label :to, class: "form-label" %>
+      <%= form.text_field :email, class: "form-control w-5" %>
+    </div>
+
+    <div class="col mb-4">
+      <%= form.label :status_Date, "Status Date", class: "form-label" %>
+      <%= form.date_field :status_date, class: "form-control" %>
+    </div>
+  </div>
+  <div>
+    <div class= "row container">
+    <div class="col mb-4">
+      <%= form.label :project %>
+      <%= form.text_field :project %>
+    </div>
+
+    <div class="col mb-4">
+      <%= form.label :working_hours %>
+      <%= form.time_field :working_hours,class: "form-control" %>
+    </div>
+  </div>
+  <div class="row container">
+    <div class="col mb-4">
+      <%= form.label :status %>
+      <%= form.select :status, ["None", "In process", "Done", "Testing", "Deployed"] %>
+    </div>
+
+    <div class="col mb-4">
+      <%= form.label :task %>
+      <%= form.text_area :task, class: "form-control " %>
+    </div>
+
+    <div class="w-5">
+    <%= form.submit %>
+    </div>
+  </div> 
+<% end %>
+  

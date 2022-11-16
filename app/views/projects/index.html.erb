@@ -1,4 +1,6 @@
-<%= link_to "Create Project", new_project_path,class: "btn btn-primary  " %>
+<% unless current_user.has_any_role? :employee, :team_lead %>
+  <%= link_to "Create Project", new_project_path,class: "btn btn-primary  " %>
+<% end %>
 
 <% current_user.projects.each do |project| %>
   <div class="card">
@@ -23,8 +25,10 @@
         <% end %>
       </div>
 
-      <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-info" %>
-      <%= button_to "Delete Project", project_path(project), method: :delete, class: "btn btn-danger" %><br>
+      <% unless current_user.has_any_role? :employee, :team_lead %>
+        <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-info" %>
+        <%= button_to "Delete Project", project_path(project), method: :delete, class: "btn btn-danger" %><br>
+      <% end %>
     </div>
   </div>
 <% end %>

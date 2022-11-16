@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_14_133101) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -60,6 +60,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_133101) do
     t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
+  create_table "daily_statuses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "email"
+    t.date "status_date"
+    t.string "project"
+    t.time "working_hours"
+    t.string "status"
+    t.string "task"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_daily_statuses_on_user_id"
+  end
+
   create_table "labels", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "labeled_on_type", null: false
@@ -94,6 +107,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_133101) do
     t.integer "project_id", null: false
   end
 
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.integer "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "status"
@@ -120,9 +144,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_14_133101) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
+  add_foreign_key "daily_statuses", "users"
   add_foreign_key "labels", "users"
   add_foreign_key "off_duties", "users"
   add_foreign_key "tasks", "projects"
