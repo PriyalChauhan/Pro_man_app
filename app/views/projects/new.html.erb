@@ -1,4 +1,4 @@
-<% if current_user.has_any_role? :employee, :team_lead %>
+<% if current_user.has_any_role? :employee, :team_lead %> <%# only admin and project manager can create projects%>
  <h2 class = "container text-center mt-5 text-danger" >You do not have access to this page </h2>
 <% else %>
   <div class="card">

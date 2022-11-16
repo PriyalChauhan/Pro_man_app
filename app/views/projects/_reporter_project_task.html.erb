@@ -1,0 +1,35 @@
+
+
+
+
+
+
+<% @tasks.each do |task| %>
+<% if current_user.id == task.reporter_id %>
+  <div class="card">
+    <div class="card-body">
+      <div>
+        <h5 class="card-title">Project's Name : <%= link_to task.project.name, project_path(task.project) %></h5>
+      </div>
+
+      <div class = "float-end" ><%= select_tag('label', options_from_collection_for_select(Label.all, 'id', 'label'), prompt: "Label") %></div>
+
+      <div>
+        <p class="card-text">Description : <%= task.project.description %></p>
+      </div>
+
+      <div>
+        <% task.project.documents.each do |document| %>
+          <% if document.image? %>
+            <%= image_tag(document, size: '200x100') %>
+          <% elsif document.video? %>
+            <%= video_tag(url_for(document), size: '200x90', controls: "") %>
+          <% end %>
+        <% end %>
+      </div>
+
+      
+    </div>
+  </div>
+  <% end %>
+  <% end %>

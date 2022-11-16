@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   def index
     @projects = current_user.projects
-    
+    @tasks = Task.all
   end
 
   def show;

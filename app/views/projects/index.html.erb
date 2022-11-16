@@ -1,6 +1,8 @@
-<% unless current_user.has_any_role? :employee, :team_lead %>
+<% unless current_user.has_any_role? :employee, :team_lead %>     <%# only admin and project manager can create projects%>
   <%= link_to "Create Project", new_project_path,class: "btn btn-primary  " %>
 <% end %>
+
+<%= render "reporter_project_task" %>
 
 <% current_user.projects.each do |project| %>
   <div class="card">
@@ -25,7 +27,7 @@
         <% end %>
       </div>
 
-      <% unless current_user.has_any_role? :employee, :team_lead %>
+      <% unless current_user.has_any_role? :employee, :team_lead %>  <%# only admin and project manager can edit and delete projects%>
         <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-info" %>
         <%= button_to "Delete Project", project_path(project), method: :delete, class: "btn btn-danger" %><br>
       <% end %>

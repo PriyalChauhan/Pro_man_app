@@ -16,6 +16,6 @@ class User < ApplicationRecord
   def assign_default_role
     self.add_role(:employee) if self.roles.blank?
   end
-  # has_many :reporting_tasks, class_name: "Task", foreign_key: "reporter_id"
-  # has_many :assigning_tasks, class_name: "Task", foreign_key: "assignee_id"
+  has_many :reporting_tasks, class_name: "Task", foreign_key: "reporter_id"
+  has_many :assigning_tasks, class_name: "Task", foreign_key: "assignee_id"
 end
