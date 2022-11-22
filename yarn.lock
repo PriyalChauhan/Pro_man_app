@@ -116,6 +116,10 @@ braces@~3.0.2:
   optionalDependencies:
     fsevents "~2.3.2"
 
+"cocoon@github:nathanvda/cocoon#c24ba53":
+  version "1.2.10"
+  resolved "https://codeload.github.com/nathanvda/cocoon/tar.gz/c24ba53b40e688e7d8b7212824139ec7f352a242"
+
 esbuild-android-64@0.15.13:
   version "0.15.13"
   resolved "https://registry.yarnpkg.com/esbuild-android-64/-/esbuild-android-64-0.15.13.tgz#5f25864055dbd62e250f360b38b4c382224063af"
@@ -304,7 +308,7 @@ jquery-ui@^1.12.1:
   dependencies:
     jquery ">=1.8.0 <4.0.0"
 
-"jquery@>=1.8.0 <4.0.0", jquery@^3.6.0:
+"jquery@>=1.8.0 <4.0.0", jquery@^3.6.0, jquery@^3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.1.tgz#fab0408f8b45fc19f956205773b62b292c147a16"
   integrity sha512-opJeO4nCucVnsjiXOE+/PcCgYw9Gwpvs/a6B1LL/lQhwWwpbVEVYDZ1FokFr8PRc7ghYlrFPuyHuiiDNTQxmcw==

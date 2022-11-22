@@ -5,6 +5,8 @@ class DailyStatusesController < ApplicationController
 
   def new
     @daily_status = current_user.daily_statuses.new
+    #@daily_status = current_user.daily_statuses.new(statuses: [Status.new])
+    #@statuses = @daily_status.statuses.build
   end
 
   def create
@@ -22,6 +24,6 @@ class DailyStatusesController < ApplicationController
 
   private
   def daily_status_params
-    params.require(:daily_status).permit(:email,:status_date,:project,:working_hours,:status,:task)
+    params.require(:daily_status).permit(:email,:status_date,:project,:working_hours,:status, statuses_attributes: [:id, :daily_status_id, :status, :_destroy] )
   end
 end

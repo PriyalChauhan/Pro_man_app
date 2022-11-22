@@ -1,43 +1,52 @@
 
 <h3>Send your daily status</h3>
-<%= form_with model: @daily_status do |form| %>
-  <div class= "row container">
-    <div class="col mb-4">
-      <%= form.label :to, class: "form-label" %>
-      <%= form.text_field :email, class: "form-control w-5" %>
-    </div>
+<div class= "center-form center_div">
+  <%= form_with model: @daily_status, local: true  do |f| %>
+    <div class= "row container w-50">
+      <div class="col mb-4">
+        <%= f.label :to, class: "form-label" %>
+        <%= f.text_field :email, class: "form-control w-5 border-primary" %>
+      </div>
 
-    <div class="col mb-4">
-      <%= form.label :status_Date, "Status Date", class: "form-label" %>
-      <%= form.date_field :status_date, class: "form-control" %>
+      <div class="col mb-4">
+        <%= f.label :status_Date, "Status Date", class: "form-label" %>
+        <%= f.date_field :status_date, class: "form-control border-primary" %>
+      </div>
     </div>
-  </div>
-  <div>
-    <div class= "row container">
-    <div class="col mb-4">
-      <%= form.label :project %>
-      <%= form.text_field :project %>
-    </div>
+    <div>
+      <div class= "row container w-50">
+      <div class="col mb-4">
+        <%= f.label :project %>
+        <%= f.text_field :project,class: "form-control border-primary" %>
+      </div>
 
-    <div class="col mb-4">
-      <%= form.label :working_hours %>
-      <%= form.time_field :working_hours,class: "form-control" %>
+      <div class="col mb-4">
+        <%= f.label :working_hours %>
+        <%= f.time_field :working_hours,class: "form-control border-primary" %>
+      </div>
     </div>
-  </div>
-  <div class="row container">
-    <div class="col mb-4">
-      <%= form.label :status %>
-      <%= form.select :status, ["None", "In process", "Done", "Testing", "Deployed"] %>
-    </div>
+    <div class="row container w-50">
+      <div class="col mb-4">
+        <%= f.label :status %>
+        <%= f.select :status, ["None", "In process", "Done", "Testing", "Deployed"],{}, {class: "form-control border-primary"} %>
+      </div>
 
-    <div class="col mb-4">
-      <%= form.label :task %>
-      <%= form.text_area :task, class: "form-control " %>
-    </div>
+      <%# fields_for %>
+      <div class="col mb-4" id = "statuses" >
+        <%= f.fields_for :statuses do |t|%>
+          <%= render "statuses/status_form", f: t%>
+        <% end %>
 
-    <div class="w-5">
-    <%= form.submit %>
-    </div>
-  </div> 
-<% end %>
-  
+        <%#= link_to_add_association "More tasks", f, :statuses %>
+        <%#= form.fields_for :task do |tf| %>
+          <%#= tf.label :task %>
+          <%#= tf.text_area :status, class: "form-control border-primary" %>
+        <%# end %>
+      </div>
+
+      <div class="btn">
+      <%= f.submit(value: "Send Status", class: "btn btn-primary") %>
+      </div>
+    </div> 
+  <% end %>
+</div>

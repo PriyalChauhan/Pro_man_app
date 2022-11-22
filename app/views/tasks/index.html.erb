@@ -1,12 +1,17 @@
-<h1>All tasks of <%= @project.name %></h1>
+<h2 class="m-2">All tasks of <%= @project.name %></h2>
 
 <div class = "card">
-  <div class = "card_body" >
+  <div class = "card-body" >
     <% @tasks.each do |task| %>
-      <div class = "card-title">
+      <div class = "card-title mt-2">
         <h3> Task : <%= task.title %></h3>
+        <p class="float-end text-warning rounded-pill bg-dark size text-center" style="width:80px"> <%= task.label %></p>
         <p> Status : <%= task.status %></p>
-        <%= button_to "Delete Task", project_task_path(id: task.id), method: :delete %>
+        <% if current_user.has_role? :employee %>
+        <% else %>
+          <%#= link_to "Edit Task", edit_project_task_path(id: task.id), class: "btn btn-success mb-2" %> 
+          <%= button_to "Delete Task", project_task_path(id: task.id), method: :delete, class: "btn btn-danger" %>
+        <% end %>
       </div>
 
       <div>
@@ -18,29 +23,29 @@
           <% end %>
         <% end %>
       </div>
-
-      <div class= "form-outline m-4 p-4 border-bottom border-danger border-5">
-        <%= form_for([@task,@comment], remote: true) do |form| %>
-          <%= form.label :comment, class: "form-label" %>
-          <%= form.text_field :comment %>
-
-          <%= form.submit%>
-        <% end %>
+      
+      <div class= "border-bottom border-secondary border-5">
+        <div class= "form-outline m-4 p-4 mb-1 ">
+        
+          <%= form_for([@task,@comment], remote: true) do |form| %>
+            <%= form.label :comment, class: "form-label" %>
+            <%= form.text_field :comment, class: "form-control border-danger w-25"%>
+            
+            <div>
+              <%= form.submit(class: "btn btn-primary mt-2") %>
+            </div>
+          <% end %>
+          
+        </div>
       </div>
     <% end %>
   
-    <div class= "mb-4">
+    <div class= "mb-4 mt-2">
+      <h3>Comments for tasks</h3>
       <% unless @task.nil? %>
         <% @task.comments.each do |c| %>
-          <table>
-            <tbody>
-              <tr>
-                <td><%= current_user.first_name %></td>
-                <td> -> </td>
-                <td><%= c.comment %><br></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class=" w-25 p-1 mb-2 bg-secondary bg-gradient text-white"><%= render "projects/avatar" %><span> </span><%= c.user %></div>
+          <div class="p-3 mb-1 bg-light bg-gradient text-dark"><%= c.comment %></div>
         <% end %>
       <% end %>
     </div>

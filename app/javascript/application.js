@@ -5,3 +5,5 @@ import "trix"
 import "@rails/actiontext"
 import * as bootstrap from "bootstrap"
 
+require('jquery')
+import "cocoon";

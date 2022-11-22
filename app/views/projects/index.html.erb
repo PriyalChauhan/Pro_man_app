@@ -1,36 +1,48 @@
 <% unless current_user.has_any_role? :employee, :team_lead %>     <%# only admin and project manager can create projects%>
-  <%= link_to "Create Project", new_project_path,class: "btn btn-primary  " %>
+  <%= link_to "+ Create Project", new_project_path,class: "btn btn-primary" %>
 <% end %>
 
-<%= render "reporter_project_task" %>
-
-<% current_user.projects.each do |project| %>
-  <div class="card">
+<%# current_user.projects.each do |project| %>
+<% @projects.each do |team| %>
+  <div class="card" style = "background-color: #D3D3D3">
     <div class="card-body">
       <div>
-        <h5 class="card-title">Project's Name : <%= link_to project.name, project_path(project) %></h5>
+        <h5 class="card-title">Project's Name : <%= link_to team.project.name, project_path(team.project.id) %></h5>
       </div>
 
-      <div class = "float-end" ><%= select_tag('label', options_from_collection_for_select(Label.all, 'id', 'label'), prompt: "Label") %></div>
-
-      <div>
-        <p class="card-text">Description : <%= project.description %></p>
+      <div class="float-end">
+        <p class="float-end text-warning rounded-pill bg-dark size text-center" style="width:80px"><%= team.project.priority %></p>
       </div>
+      <%#if team.project.labels.present? %>
+          <%#= render "labels/labels" %>
+          <%# @project.labels.each do |new| %>
+            <%#= new.label %>
+          <%# end %>
+        
+      <%# else %>
+      <%# end %>
+      <%#<div class = "float-end" ><%= select_tag('label', options_from_collection_for_select(Label.all, 'id', 'label'), prompt: "Label")</div> %>
+      
+      <div class="container m-1">
+        <div>
+          <p class="card-text">Description : <%= team.project.description %></p>
+        </div>
 
-      <div>
-        <% project.documents.each do |document| %>
-          <% if document.image? %>
-            <%= image_tag(document, size: '200x100') %>
-          <% elsif document.video? %>
-            <%= video_tag(url_for(document), size: '200x90', controls: "") %>
+        <div>
+          <% team.project.documents.each do |document| %>
+            <% if document.image? %>
+              <%= image_tag(document, size: '200x100') %>
+            <% elsif document.video? %>
+              <%= video_tag(url_for(document), size: '200x90', controls: "") %>
+            <% end %>
           <% end %>
+        </div>
+
+        <% unless current_user.has_any_role? :employee, :team_lead %>  <%# only admin and project manager can edit and delete projects%>
+          <p><%= link_to "Edit Project", edit_project_path(team.project.id), class: "btn btn-success" %></p>
+          <p><%= button_to "Delete Project", project_path(team.project.id), method: :delete, class: "btn btn-danger" %></p>
         <% end %>
       </div>
-
-      <% unless current_user.has_any_role? :employee, :team_lead %>  <%# only admin and project manager can edit and delete projects%>
-        <%= link_to "Edit Project", edit_project_path(project), class: "btn btn-info" %>
-        <%= button_to "Delete Project", project_path(project), method: :delete, class: "btn btn-danger" %><br>
-      <% end %>
     </div>
   </div>
 <% end %>

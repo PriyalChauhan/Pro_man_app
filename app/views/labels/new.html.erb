@@ -1,10 +1,6 @@
-<h3>Create New label</h3>
-
-<%= form_for([@parent,@label]) do |form| %>
-  
+<%= form_with model: @label do |form| %>
   <%= form.label :label %>
-  <%= form.text_field :label%>
+  <%= form.select :label, ["New", "Done", "Ongoing"] %>
 
   <%= form.submit %>
 <% end %>
-

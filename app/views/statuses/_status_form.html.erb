@@ -1,0 +1,8 @@
+<%= turbo_frame_tag "status_#{f.index}" do %>
+  <%= f.hidden_field :id %>
+
+  <div>
+    <%= f.label :status %>
+    <%= f.text_area :status %>
+  </div>
+<% end %>

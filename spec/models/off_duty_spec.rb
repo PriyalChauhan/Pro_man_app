@@ -1,5 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe OffDuty, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe OffDuty do
+  describe "validation" do
+    it { is_expected.to validate_presence_of(:from_date) }
+    it { is_expected.to validate_presence_of(:to_date) }
+    it { is_expected.to validate_presence_of(:days) }
+    it { is_expected.to validate_presence_of(:mail_to) }
+    it { is_expected.to validate_presence_of(:reason) }
+  end
 end

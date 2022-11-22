@@ -1,6 +1,6 @@
 class Label < ApplicationRecord
-  validates :label, presence: true, uniqueness: true
-
-  belongs_to :user
-  belongs_to :labeled_on, polymorphic: true
+  has_many :pins
+  has_many :tasks, through: :pins, dependent: :destroy
+  has_many :projects, through: :pins, dependent: :destroy
+  validates :label, uniqueness: true
 end

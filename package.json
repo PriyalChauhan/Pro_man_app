@@ -8,7 +8,9 @@
     "@rails/actiontext": "^7.0.4",
     "bootstrap": "^5.2.2",
     "bootstrap-icons": "^1.10.2",
+    "cocoon": "github:nathanvda/cocoon#c24ba53",
     "esbuild": "^0.15.13",
+    "jquery": "^3.6.1",
     "rails_admin": "3.1.0",
     "sass": "^1.56.1",
     "trix": "^2.0.0"

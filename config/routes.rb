@@ -15,7 +15,14 @@ Rails.application.routes.draw do
 
   resources :labels
   resources :off_duties
-  resources :daily_statuses  
+  resources :daily_statuses
+  resources :pins  
+
+  resources :statuses, only: [], param: :index do
+    member do
+      delete '(:id)' => "statuses#destroy", as: ""
+    end
+  end
 
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

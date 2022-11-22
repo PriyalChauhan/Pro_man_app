@@ -24,9 +24,13 @@ class TasksController < ApplicationController
   def show
   end 
 
+  def edit
+    @task = @project.tasks.find(params[:id])
+  end 
+
   def update
     @task = @project.tasks.update(task_params)
-    redirect_to project_path(@project)
+    redirect_to project_tasks_path(@project)
   end
 
   def destroy
@@ -36,10 +40,14 @@ class TasksController < ApplicationController
 
   private
   def set_task
-    @project = current_user.projects.find(params[:project_id])
+    # if current_user.has_role? :employee
+      @project = Project.find(params[:project_id])
+    # else
+    #   @project = current_user.projects.find(params[:project_id])
+    # end
   end
 
   def task_params
-    params.require(:task).permit(:title, :project_id, :status, :reporter_id, :assignee_id, documents: [])
+    params.require(:task).permit(:title, :project_id, :status,:label, :reporter_id, :assignee_id, documents: [])
   end
 end

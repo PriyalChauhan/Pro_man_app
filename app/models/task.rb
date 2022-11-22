@@ -7,5 +7,11 @@ class Task < ApplicationRecord
   belongs_to :assignee, foreign_key: :assignee_id, class_name: "User"
   has_rich_text :description
   has_many :comments, as: :commentable
-  has_many :labels, as: :labeled_on
+  
+  #belongs_to :daily_status
+
+  has_many :pins
+  has_many :labels, through: :pins, dependent: :destroy
+
+  enum :label, { Bug: 0, Feature: 1 }
 end

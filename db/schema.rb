@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_22_060457) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -24,8 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.bigint "blob_id", null: false
+    t.integer "record_id", null: false
+    t.integer "blob_id", null: false
     t.datetime "created_at", null: false
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
@@ -44,7 +44,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
-    t.bigint "blob_id", null: false
+    t.integer "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
@@ -74,14 +74,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
   end
 
   create_table "labels", force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.string "labeled_on_type", null: false
-    t.integer "labeled_on_id", null: false
     t.string "label"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["labeled_on_type", "labeled_on_id"], name: "index_labels_on_labeled_on"
-    t.index ["user_id"], name: "index_labels_on_user_id"
   end
 
   create_table "off_duties", force: :cascade do |t|
@@ -96,15 +91,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
     t.index ["user_id"], name: "index_off_duties_on_user_id"
   end
 
+  create_table "pins", force: :cascade do |t|
+    t.integer "project_id"
+    t.integer "task_id"
+    t.integer "label_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["label_id"], name: "index_pins_on_label_id"
+    t.index ["project_id"], name: "index_pins_on_project_id"
+    t.index ["task_id"], name: "index_pins_on_task_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "projects_users", id: false, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "project_id", null: false
+    t.integer "priority"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -118,6 +120,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.text "status"
+    t.integer "daily_status_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["daily_status_id"], name: "index_statuses_on_daily_status_id"
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title"
     t.string "status"
@@ -126,9 +136,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
     t.integer "assignee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "label"
     t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
     t.index ["reporter_id"], name: "index_tasks_on_reporter_id"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_teams_on_project_id"
+    t.index ["user_id"], name: "index_teams_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -156,9 +176,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_16_110144) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users"
   add_foreign_key "daily_statuses", "users"
-  add_foreign_key "labels", "users"
   add_foreign_key "off_duties", "users"
+  add_foreign_key "pins", "labels"
+  add_foreign_key "pins", "projects"
+  add_foreign_key "pins", "tasks"
+  add_foreign_key "statuses", "daily_statuses"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users", column: "assignee_id"
   add_foreign_key "tasks", "users", column: "reporter_id"
+  add_foreign_key "teams", "projects"
+  add_foreign_key "teams", "users"
 end
