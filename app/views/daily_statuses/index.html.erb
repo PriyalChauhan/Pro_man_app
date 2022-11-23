@@ -6,7 +6,7 @@
       <th scope="col"> Project </th>
       <th scope="col"> Working Hours </th>
       <th scope="col"> Status </th>
-      <th scope="col"> Task </th>
+      <th scope="col"> Tasks</th>
     </tr>
   </thead>
   <tbody>
@@ -17,7 +17,9 @@
         <td><%= daily.project %></td>
         <td><%= daily.working_hours%></td>
         <td><%= daily.status %></td>
-        <td><%= daily.task %></td>
+        <% daily.statuses.each do |st| %>
+          <td style= "display: block" class><%= st.status %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

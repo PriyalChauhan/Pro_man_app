@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :statuses, only: [], param: :index do
     member do
       delete '(:id)' => "statuses#destroy", as: ""
+      post '/' => "statuses#create"
     end
   end
 

@@ -2,7 +2,8 @@
   <%= f.hidden_field :id %>
 
   <div>
-    <%= f.label :status %>
     <%= f.text_area :status %>
   </div>
+
+<%= f.submit "destroy_status",formaction: status_path(f.index, f.object.id), formmethod: :delete, formnovalidate: true, data: { turbo_frame: "task_#{f.index}" } %>
 <% end %>

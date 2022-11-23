@@ -37,6 +37,7 @@
           <%= render "statuses/status_form", f: t%>
         <% end %>
 
+      <%= f.submit "Add Tasks Detail", formaction: status_path(@daily_status.statuses.size), formmethod: :post, formnovalidate: true, id: "Add Status",class: "btn btn-secondary" %>
         <%#= link_to_add_association "More tasks", f, :statuses %>
         <%#= form.fields_for :task do |tf| %>
           <%#= tf.label :task %>

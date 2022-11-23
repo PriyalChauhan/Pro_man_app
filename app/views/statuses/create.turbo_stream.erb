@@ -1,0 +1,15 @@
+<%= fields model: @daily_status do |form| %>
+  <%= form.fields_for :statuses, child_index: params[:index] do |status_form| %>
+    <%= turbo_stream.replace "add-status" do %>
+      <%= form.submit "Add status", 
+            formaction: status_path(status_form.index.to_i + 1), 
+            formmethod: :post, 
+            formnovalidate: true, 
+            id: "add-status" %>
+    <% end %>
+
+    <%= turbo_stream.append "statuses" do %>
+      <%= render "status_form", f: status_form %>
+    <% end %>
+  <% end %>
+<% end %>

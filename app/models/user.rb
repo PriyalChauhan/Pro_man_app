@@ -5,7 +5,7 @@ class User < ApplicationRecord
   has_many :teams, dependent: :delete_all
   has_many :projects, through: :teams
 
-  validates :avatar, presence: true
+  validates :avatar,:first_name, presence: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,

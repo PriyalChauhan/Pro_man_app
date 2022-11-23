@@ -4,8 +4,8 @@ class DailyStatusesController < ApplicationController
   end
 
   def new
-    @daily_status = current_user.daily_statuses.new
-    #@daily_status = current_user.daily_statuses.new(statuses: [Status.new])
+    #@daily_status = current_user.daily_statuses.new
+    @daily_status = current_user.daily_statuses.new(statuses: [Status.new])
     #@statuses = @daily_status.statuses.build
   end
 

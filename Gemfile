@@ -8,7 +8,7 @@ group :development, :test do
   gem 'rspec-rails'
 end
 
-group :test do
+group :development, :test do
   gem 'shoulda-matchers', '~> 5.0'
 end
 

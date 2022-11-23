@@ -8,4 +8,8 @@ describe OffDuty do
     it { is_expected.to validate_presence_of(:mail_to) }
     it { is_expected.to validate_presence_of(:reason) }
   end
+
+  describe "#association" do
+    it { should belong_to(:user) }
+  end
 end

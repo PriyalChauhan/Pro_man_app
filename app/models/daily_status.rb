@@ -1,5 +1,5 @@
 class DailyStatus < ApplicationRecord
-  #validates :email, :status_date, :project, :working_hours, :status, :task, presence: true
+  validates :email, :status_date, :project, :working_hours, :status, presence: true
 
   belongs_to :user
   has_many :statuses
